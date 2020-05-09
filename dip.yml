@@ -1,0 +1,21 @@
+version: '1'
+
+environment:
+  NODE_ENV: "dev"
+
+interaction:
+  sh:
+    service: node
+    command: bash
+
+  npm:
+    service: node
+    command: npm
+
+  npx:
+    service: node
+    command: npx
+
+  run:
+    service: node
+    compose_run_options: [service-ports]

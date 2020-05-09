@@ -1,0 +1,29 @@
+{
+  "name": "github-anniversary",
+  "version": "0.1.0",
+  "description": "Application to show anniversary people working on the project based on contributions",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava",
+    "start": "node index.js",
+    "debug": "nodemon --inspect index.js"
+  },
+  "ava": {
+		"files": [
+      "**/*.test.js",
+			"!temp/**/*"
+		]
+	},
+  "author": "Denis Korobitsin",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^17.8.0",
+    "dotenv": "^8.2.0",
+    "moment": "^2.25.3"
+  },
+  "devDependencies": {
+    "ava": "^3.8.2",
+    "eslint": "^7.0.0",
+    "nodemon": "^2.0.3"
+  }
+}
