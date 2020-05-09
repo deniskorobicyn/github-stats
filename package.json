@@ -1,7 +1,7 @@
 {
-  "name": "github-anniversary",
+  "name": "github-stats",
   "version": "0.1.0",
-  "description": "Application to show anniversary people working on the project based on contributions",
+  "description": "Application to show stats for people working on the Github Organization based on contributions",
   "main": "index.js",
   "scripts": {
     "test": "ava",
