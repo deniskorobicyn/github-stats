@@ -1,4 +1,16 @@
-node_modules
+# editors
 .vscode
-temp
+
+# node
+node_modules
+
+# credentials
 .env
+
+# temporal files
+temp/*
+!temp/.keep
+
+# result files
+result/*
+!result/.keep

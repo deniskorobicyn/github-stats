@@ -1,9 +1,8 @@
-const { Octokit } = require("@octokit/rest");
-// eslint-disable-next-line no-undef
-const { GITHUB_TOKEN } = require('./consts');
+const vcs = require('./instance');
+
 
 async function fetchRepos(org) {
-  const octokit = new Octokit({auth: GITHUB_TOKEN});
+  const octokit = vcs.octokit;
   const repos = await octokit.paginate(octokit.repos.listForOrg, {org: org, type: "sources"});
   return repos;
 }

@@ -16,6 +16,6 @@ interaction:
     service: node
     command: npx
 
-  run:
+  execute:
     service: node
     compose_run_options: [service-ports]

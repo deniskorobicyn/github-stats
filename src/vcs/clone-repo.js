@@ -14,8 +14,6 @@ function cloneRepo(cloneUrl, folder) {
       reject(`failure code - ${code}`);
     });
 
-    cloneProcess.stderr.on('data', data => console.error(data));
-
     cloneProcess.on('error', error => {
       return reject(error);
     });

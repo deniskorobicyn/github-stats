@@ -9,11 +9,11 @@
     "debug": "nodemon --inspect index.js"
   },
   "ava": {
-		"files": [
+    "files": [
       "**/*.test.js",
-			"!temp/**/*"
-		]
-	},
+      "!temp/**/*"
+    ]
+  },
   "author": "Denis Korobitsin",
   "license": "MIT",
   "dependencies": {
