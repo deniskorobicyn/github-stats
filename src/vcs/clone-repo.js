@@ -1,23 +1,10 @@
-const { spawn } = require("child_process");
 const fs = require('fs');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
-function cloneRepo(cloneUrl, folder) {
-  return new Promise( (resolve, reject) => {
-    fs.mkdirSync(folder);
-    const cloneProcess = spawn("git", ['clone', cloneUrl, folder]);
-
-    cloneProcess.on('close', async code => {
-      if(code === 0) {
-        return resolve();
-      }
-
-      reject(`failure code - ${code}`);
-    });
-
-    cloneProcess.on('error', error => {
-      return reject(error);
-    });
-  })
+async function cloneRepo(cloneUrl, folder) {
+  fs.mkdirSync(folder);
+  await exec(`git clone ${cloneUrl} ${folder}`);
 }
 
 module.exports = cloneRepo;

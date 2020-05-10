@@ -19,3 +19,7 @@ interaction:
   execute:
     service: node
     compose_run_options: [service-ports]
+
+  clean-temp:
+    service: node
+    command: bash -c "rm -rf !.keep /app/temp/* "

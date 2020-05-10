@@ -1,40 +1,27 @@
-const { spawn } = require("child_process");
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 const moment = require('moment');
 
-function fetchCommits(folder) {
-  return new Promise( (resolve, reject) => {
-    const gitProc = spawn('git', ['rev-list', '--pretty=format:%at$%aN$%aE', 'HEAD'], {cwd: folder});
+async function fetchCommits(folder) {
+  try {
+    const { stdout } = await exec('git rev-list "--pretty=format:%at&%aN&%aE" --all', {cwd: folder, maxBuffer: 1024 * 1024 * 4});
 
-    let res = "";
-    gitProc.stdout.on('data', data => {
-      res += data;
-    });
+    if(stdout){
+      return stdout.split("\n").filter(line => !line.startsWith('commit')).map(line => {
+        const [timestamp, nickname, email] = line.split('&');
 
-    gitProc.on('close', code => {
-      if(code === 0) {
-        const commits = res.split("\n").filter(line => !line.startsWith('commit')).map(line => {
-          const [timestamp, nickname, email] = line.split('$');
+        return {
+          time: moment.unix(timestamp).utc(),
+          nickname,
+          email
+        }
+      });
+    }
 
-          return {
-            time: moment.unix(timestamp).utc(),
-            nickname,
-            email
-          }
-        });
-
-        return resolve(commits);
-      }
-
-      // return empty array in case it's empty repo
-      if(code === 128) {
-        return resolve([])
-      }
-
-      reject(code);
-    });
-
-    gitProc.on('error', error => reject(error));
-  });
+  } catch(error) {
+    // Silcense all errors for now, yes, it's bad, I neeed to figure out how to find repo being empty without commits
+    return [];
+  }
 }
 
 module.exports = fetchCommits;
